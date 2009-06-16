@@ -43,36 +43,6 @@ sub init
 		'opaque' => 12,
 		'cas'    => 16,
 	};
-
-	$self->{'qtype'} = {
-		'GET'        => "\x00",
-		'SET'        => "\x01",
-		'ADD'        => "\x02",
-		'REPLACE'    => "\x03",
-		'DELETE'     => "\x04",
-		'INCREMENT'  => "\x05",
-		'DECREMENT'  => "\x06",
-		'QUIT'       => "\x07",
-		'FLUSH'      => "\x08",
-		'GETQ'       => "\x09",
-		'NOOP'       => "\x0A",
-		'VERSION'    => "\x0B",
-		'GETK'       => "\x0C",
-		'GETKQ'      => "\x0D",
-		'APPEND'     => "\x0E",
-		'PREPEND'    => "\x0F",
-		'STAT'       => "\x10",
-		'SETQ'       => "\x11",
-		'ADDQ'       => "\x12",
-		'REPLACEQ'   => "\x13",
-		'DELETEQ'    => "\x14",
-		'INCREMENTQ' => "\x15",
-		'DECREMENTQ' => "\x16",
-		'QUITQ'      => "\x17",
-		'FLUSHQ'     => "\x18",
-		'APPENDQ'    => "\x19",
-		'PREPENDQ'   => "\x1A"
-	}
 }
 
 sub connect
