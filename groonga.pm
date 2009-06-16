@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 package groonga;
 
 use Socket;
@@ -18,6 +16,7 @@ sub init
 {
 	my $self = shift || {};
 
+	$self->{'connect'} = 0;
 	$self->{'send_header'} = "\xc7" . "\x00" x 23;
 
 	$self->{'header_length'} = {
@@ -85,6 +84,8 @@ sub connect
 		close($self->{'socket'});
 		return;
 	}
+
+	$self->{'connect'} = 1;
 }
 
 sub header_set
@@ -110,6 +111,10 @@ sub send
 	my $self = shift || return;
 	my $body = shift || return;
 
+	unless ($self->{'connect'}) {
+		return;
+	}
+
 	my $header = $self->{'send_header'};
 
 	&header_set($self, $header, 'qtype', "\x00");
@@ -128,6 +133,10 @@ sub recv
 {
 	my $self = shift || return;;
 
+	unless ($self->{'connect'}) {
+		return;
+	}
+
 	my $nLen = sysread($self->{'socket'}, my $buffer, 4096);
 	($nLen <= 0) and return;
 
@@ -141,6 +150,7 @@ sub exit
 	my $self = shift || return;;
 
 	close($self->{'socket'});
+	$self->{'connect'} = 0;
 }
 
 1;
