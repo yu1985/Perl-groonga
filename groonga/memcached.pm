@@ -90,4 +90,22 @@ sub add
 	return;
 }
 
+sub delete
+{
+	my $self  = shift || return;
+	my $key   = shift || return;
+
+	unless ($self->{'connect'}) {
+		return;
+	}
+
+	&groonga::send($self, '(<cache> ::del ?)');
+	&groonga::recv($self);
+
+	&groonga::send($self, $key);
+	&groonga::recv($self);
+
+	return;
+}
+
 1;
